@@ -1,0 +1,76 @@
+<!--Thank yYou FIREBASE for providing DATABASE-->
+<link rel="icon" href="https://i.postimg.cc/CRdbQwbd/IMG-20210719-110819.jpg" sizes="16x16" type="image/jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC84c_O9QF6Yph-N2OvNtJqaOlp5TTMbuo",
+    authDomain: "chatapp-4f7f8.firebaseapp.com",
+    projectId: "chatapp-4f7f8",
+    storageBucket: "chatapp-4f7f8.appspot.com",
+    messagingSenderId: "580217888660",
+    appId: "1:580217888660:web:e877f1975021a97910f981",
+    measurementId: "G-077BW6QG9G"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+<script>
+  var myName = window.prompt("{Enter Your Name}");
+  function sendMessage(){
+  
+  var message = document.getElementById("message").value;
+
+		// save in database
+		firebase.database().ref("messages").push().set({
+			"sender": myName,
+			"message": message
+		});
+		return false;
+  }
+  firebase.database().ref("messages").on("child_added", function(snap){
+	 /* document.getElementById("messagesul").innerHTML = */
+	 var prop = document.createElement("li");
+	 prop.setAttribute("style","font-family:Sans-Serif;")
+//	 prop.setAttribute("id","box");
+	 prop.innerHTML = "[" + snap.val().sender + "]" + " : " + snap.val().message;
+	 document.getElementById("messagesul").appendChild(prop)
+	})
+</script>
+
+  
+<div id="" style="margin:0 auto;
+    padding-bottom:25px;
+    background:#bcc0c0;
+    width:514px;
+    border:6px solid #ebebeb;
+    border-radius: 6px;">
+  <div id="messagesul" style="width:500px; height:500px; background:white; position:relative; left:7px; top:5px">
+    </div>
+    </div>
+    <center>
+<form onsubmit="return sendMessage();">
+	<input id="message" placeholder="Enter message" autocomplete="off" style="width:260px; padding:10px; " class="f">
+
+	<input type="submit" id="sb" style="padding:10px; border:none; background:#4CAF50; color:white; cursor:pointer;" class="f">
+
+</form>
+</center>
+<style>
+  #messagesul{
+    overflow:scroll;
+  }
+  .f{
+    margin:0 auto;
+  }
+</style>
