@@ -41,10 +41,9 @@
   firebase.database().ref("messages").on("child_added", function(snap){
 	 /* document.getElementById("messagesul").innerHTML = */
 	 var prop = document.createElement("li");
-	 prop.setAttribute("style","font-family:Sans-Serif;")
+	 prop.setAttribute("style","font-family:Sans-Serif; margin:10px 0;")
 //	 prop.setAttribute("id","box");
-         prop.setAttribute("style","margin:10px 0;");
-	 prop.innerHTML = "[" + snap.val().sender + "]" + " : " + snap.val().message;
+	 prop.innerHTML = "{" + snap.val().sender + "}" + " : " + snap.val().message;
 	 document.getElementById("messagesul").appendChild(prop)
 	})
 </script>
